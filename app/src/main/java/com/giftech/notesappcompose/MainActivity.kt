@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.giftech.notesappcompose.data.NoteDataSource
 import com.giftech.notesappcompose.screen.NoteScreen
 import com.giftech.notesappcompose.ui.theme.NotesAppComposeTheme
 
@@ -25,7 +26,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background
                 ) {
                     NoteScreen(
-                        notes = emptyList(),
+                        notes = NoteDataSource().loadNotes(),
                         onAddNote = {},
                         onRemoveNote = {}
                     )
