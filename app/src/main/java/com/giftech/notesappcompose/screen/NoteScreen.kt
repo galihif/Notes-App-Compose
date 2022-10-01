@@ -18,10 +18,15 @@ import androidx.compose.ui.unit.dp
 import com.giftech.notesappcompose.R
 import com.giftech.notesappcompose.components.NoteButton
 import com.giftech.notesappcompose.components.NoteInputText
+import com.giftech.notesappcompose.model.Note
 
 @ExperimentalComposeUiApi
 @Composable
-fun NoteScreen() {
+fun NoteScreen(
+    notes: List<Note>,
+    onAddNote: (Note) -> Unit,
+    onRemoveNote: (Note) -> Unit,
+) {
     var title by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
     Column(Modifier.padding(6.dp)) {
@@ -42,7 +47,7 @@ fun NoteScreen() {
                 text = title,
                 label = "Title",
                 onTextChange = {
-                    if (it.all { char -> char.isLetter()||char.isWhitespace() }){
+                    if (it.all { char -> char.isLetter() || char.isWhitespace() }) {
                         title = it
                     }
                 })
@@ -51,11 +56,20 @@ fun NoteScreen() {
                 text = description,
                 label = "Add a note",
                 onTextChange = {
-                    if (it.all { char -> char.isLetter()||char.isWhitespace() }){
+                    if (it.all { char -> char.isLetter() || char.isWhitespace() }) {
                         title = it
                     }
                 })
-            NoteButton(text = "Save", onClick = { /*TODO*/ })
+            NoteButton(
+                text = "Save",
+                onClick = {
+                    if (title.isNotEmpty() && description.isNotEmpty()){
+                        //save to list
+                        title = ""
+                        description = ""
+                    }
+                }
+            )
         }
     }
 }
@@ -64,5 +78,5 @@ fun NoteScreen() {
 @Preview(showBackground = true)
 @Composable
 fun NoteScreenPreview() {
-    NoteScreen()
+    NoteScreen(notes = emptyList(), onAddNote = {}, onRemoveNote = {})
 }
