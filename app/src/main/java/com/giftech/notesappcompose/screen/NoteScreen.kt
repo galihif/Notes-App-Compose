@@ -8,7 +8,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Notifications
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -21,6 +21,8 @@ import com.giftech.notesappcompose.components.NoteInputText
 @ExperimentalComposeUiApi
 @Composable
 fun NoteScreen() {
+    var title by remember{ mutableStateOf("") }
+    var description by remember{ mutableStateOf("") }
     Column(Modifier.padding(6.dp)) {
         TopAppBar(
             title = {
@@ -34,7 +36,8 @@ fun NoteScreen() {
             Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            NoteInputText(text = "Hello", label = "Hello", onTextChange = {})
+            NoteInputText(text = title, label = "Title", onTextChange = {})
+            NoteInputText(text = description, label = "Add a note", onTextChange = {})
         }
     }
 }
