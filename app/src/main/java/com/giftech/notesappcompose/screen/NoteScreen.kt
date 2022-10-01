@@ -16,13 +16,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.giftech.notesappcompose.R
+import com.giftech.notesappcompose.components.NoteButton
 import com.giftech.notesappcompose.components.NoteInputText
 
 @ExperimentalComposeUiApi
 @Composable
 fun NoteScreen() {
-    var title by remember{ mutableStateOf("") }
-    var description by remember{ mutableStateOf("") }
+    var title by remember { mutableStateOf("") }
+    var description by remember { mutableStateOf("") }
     Column(Modifier.padding(6.dp)) {
         TopAppBar(
             title = {
@@ -36,8 +37,25 @@ fun NoteScreen() {
             Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            NoteInputText(text = title, label = "Title", onTextChange = {})
-            NoteInputText(text = description, label = "Add a note", onTextChange = {})
+            NoteInputText(
+                modifier = Modifier.padding(vertical = 8.dp),
+                text = title,
+                label = "Title",
+                onTextChange = {
+                    if (it.all { char -> char.isLetter()||char.isWhitespace() }){
+                        title = it
+                    }
+                })
+            NoteInputText(
+                modifier = Modifier.padding(vertical = 8.dp),
+                text = description,
+                label = "Add a note",
+                onTextChange = {
+                    if (it.all { char -> char.isLetter()||char.isWhitespace() }){
+                        title = it
+                    }
+                })
+            NoteButton(text = "Save", onClick = { /*TODO*/ })
         }
     }
 }
